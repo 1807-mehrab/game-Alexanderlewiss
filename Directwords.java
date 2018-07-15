@@ -1,7 +1,7 @@
 public class Directwords
 {
   private static final String [] validDirectWords = {
-    "move","fight", "Quit", "Help"
+    "move","fight","help","quit"
   }; 
     
 
