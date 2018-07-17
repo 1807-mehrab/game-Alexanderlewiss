@@ -14,18 +14,20 @@ import com.alex.gaamee.ConnectionUtil;
 public class AccountsDAO {
 	
 	// Method that creates an account on the AWS database using sql. 
-	public boolean createAccount(int id, String userName, String passWord) {
+	public boolean createAccount(int ID, String USERNAME, String PASSWORD) {
 		CallableStatement cs = null;
 		boolean login = false;
+		Account a = null;
 		System.out.println("Connecting to database....");
 		// Inserts the user account into the table 
 	      try(Connection conn = ConnectionUtil.getConnection()) {
-			String sql = " INSERT INTO ACCOUNTS (id, userName, passWord,)(?, ?, ?)";
+			String sql = "{CALL SP_Create_Account(?, ?, ?)}";
 			cs = conn.prepareCall(sql);
-			cs.setInt(1,id );
-			cs.setString(2,userName);
-			cs.setString(3,passWord);
+			cs.setInt(1,ID );
+			cs.setString(2,USERNAME);
+			cs.setString(3,PASSWORD);
 			
+			a = new Account(ID,USERNAME,PASSWORD);
 			// If the query does not execute the program will say that the account failed
 			//to be created
 			
@@ -39,6 +41,7 @@ public class AccountsDAO {
 			}
 		
 			cs.close();
+			//conn.close();
 			// Catches an exception
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -55,7 +58,7 @@ public class AccountsDAO {
 		try(Connection conn = ConnectionUtil.getConnection())
 		{
 			CallableStatement cs = null;
-			 String sql = "SELECT * FROM ACCOUNT WHERE username=? AND passWord=?"; // Validation
+			 String sql = "{CALL SP_CHECK_INFO(?, ?, ?)}"; // Stored procedure validation
 			 cs = conn.prepareCall(sql);
 			 ResultSet results = cs.executeQuery(sql);
 		
@@ -69,7 +72,7 @@ public class AccountsDAO {
 			 {
 			    c = true; 
 			 }
-			 
+			 //conn.close();
 			
 		}catch (Exception ex) {
 			ex.printStackTrace();

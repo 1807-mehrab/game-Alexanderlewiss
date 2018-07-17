@@ -31,12 +31,13 @@ public class App extends Thread
 		
 		if(s.equals("C")) // Calls create account if player enters C 
 		{
-			System.out.print("Enter a id");
+			System.out.println("Enter a id");
 			id = inputs.nextInt();
-			System.out.print("Enter a User Name");
-			userName = inputs.next();
-			System.out.print("Enter a Password");
-			passWord = inputs.next();
+			inputs.nextLine();
+			System.out.println("Enter a User Name");
+			userName = inputs.nextLine();
+			System.out.println("Enter a Password");
+			passWord = inputs.nextLine();
 			a.createAccount(id, userName, passWord);
 			t1.start(); 
 		}
@@ -75,7 +76,7 @@ public void run() { // Runnable interface for the thread
 		enchantedDominion = new Worlds("Enchanted Dominion! Oh no! Maleficent has Stolen Aurora's heart! Please help save her! ");
 		castleCornelia = new Worlds("7 warriors of light touch the crystals as they begin their journey ");
 		toyBox = new Worlds("Andy is missing! Help Woody and Buz find their friend.  ");
-		alantica = new Worlds("Ursula has stolen king Triton's triton. Help Arial get it back from Ursula. ");
+		alantica = new Worlds("Ursula has stolen king Triton's triton. Help Arial get it back from Ursula. End of game Type quit. Or ED to play again.  ");
 
 		enchantedDominion.exitWorld("Castle Cornelia ", castleCornelia);
 		castleCornelia.exitWorld("ToyBox", toyBox);
